@@ -2,13 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from .forms import CommentForm, PostForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 # Create your views here.
 
-# Retrieve published posts
-def post_list(request):
-    posts = Post.objects.filter(status=1)
-    return render(request, 'blog/post_list.html', {'posts': posts})
+class PostListView(ListView):
+    model = Post
+    queryset = Post.objects.filter(status=1)
+    context_object_name = 'posts'
+    template_name = 'blog/post_list.html'
 
 # Retrieve published post by slug
 def post_detail(request, slug):
