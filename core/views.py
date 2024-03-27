@@ -4,6 +4,7 @@ from .forms import CommentForm, PostForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 # Create your views here.
 
@@ -56,7 +57,11 @@ def search_results(request):
     query = request.GET.get('q')
     if query:
         # Perform the search query
-        results = Post.objects.filter(title__icontains=query)
+        results = Post.objects.filter(
+            Q(title__icontains=query) |  # Search in title
+            Q(content__icontains=query) |  # Search in content
+            Q(keywords__icontains=query)  # Search in keywords field (if available)
+        ).distinct()  # Ensure distinct results
     else:
         results = None
     return render(request, 'blog/search_results.html', {'query': query, 'results': results})
