@@ -30,8 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '8000-jteo99-blogspot-2qi3sywbow.us1.codeanyapp.com',
-    '.herokuapp.com'
+    '8000-jteo99-blogspot-2qi3sywbow.us1.codeanyapp.com', '.herokuapp.com'
 ]
 
 
@@ -44,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
 ]
 
 MIDDLEWARE = [
@@ -93,7 +91,7 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-jteo99-blogspot-2qi3sywbow.us1.codeanyapp.com",
+    "https://*.codeanyapp.com",
     "https://*.herokuapp.com"
 ]
 
@@ -132,7 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
