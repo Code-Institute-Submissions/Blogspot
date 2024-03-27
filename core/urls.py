@@ -10,7 +10,4 @@ urlpatterns = [
 
     # Post URLs
     path('<slug:slug>/', views.PostDetailView.as_view(), name='post_detail'),
-    
-    
-    
 ]
