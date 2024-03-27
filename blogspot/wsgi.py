@@ -1,5 +1,5 @@
 """
-WSGI config for blogpsot project.
+WSGI config for blogspot project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
