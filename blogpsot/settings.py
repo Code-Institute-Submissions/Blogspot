@@ -29,8 +29,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '8000-jteo99-blogspot-2qi3sywbow.us1.codeanyapp.com', '.herokuapp.com'
+ALLOWED_HOSTS = ['8000-jteo99-blogspot-2qi3sywbow.us1.codeanyapp.com', 
+                '.herokuapp.com'
 ]
 
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
 ]
 
 MIDDLEWARE = [
