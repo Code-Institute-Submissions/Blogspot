@@ -15,18 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # URL pattern for listing all posts
-    path('', views.post_list, name='post_list'),
-
-    # URL pattern for viewing a single post
-    path('post/<slug:slug>/', views.post_detail, name='post_detail'),
-
-     # URL pattern for adding a comment to a post
-    path('post/<slug:slug>/comment/', views.add_comment_to_post, name='add_comment_to_post'),
+    path("", include("core.urls"), name="core-urls"),
 ]
