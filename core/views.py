@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from .forms import CommentForm, PostForm
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import ListView DetailView
 
 # Create your views here.
 
@@ -13,9 +13,10 @@ class PostListView(ListView):
     template_name = 'blog/post_list.html'
 
 # Retrieve published post by slug
-def post_detail(request, slug):
-    post = get_object_or_404(Post, slug=slug, status=1)  
-    return render(request, 'blog/post_detail.html', {'post': post})
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html' 
+    context_object_name = 'post'
 
 # Bind the POST data to the form
 # Create a new comment object but don't save it to the database yet
