@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- index.html content starts here -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        {% for post in posts %}
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="image-container">
+                        {% if "placeholder" in post.featured_image.url %}
+                        <img class="card-img-top" src="{% static 'images/default.jpg' %}"
+                            alt="placeholder image">
+                        {% else %}
+                        <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="image-flash">
+                            <p class="author">Author: {{ post.author }}</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'post_detail' post.slug %}" class="post-link">
+                        <h2 class="card-title">{{ post.title }}</h2>
+                        <p class="card-text">{{ post.excerpt }}</p>
+                    </a>
+                    <hr />
+                    <p class="card-text text-muted h6">{{ post.created_on }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if posts.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            {% for num in posts.paginator.page_range %}
+            {% if posts.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if posts.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

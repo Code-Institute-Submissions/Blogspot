@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from .forms import CommentForm, PostForm
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView DetailView
+from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -10,7 +11,8 @@ class PostListView(ListView):
     model = Post
     queryset = Post.objects.filter(status=1)
     context_object_name = 'posts'
-    template_name = 'blog/post_list.html'
+    template_name = 'blog/index.html'
+    aginate_by = 10
 
 # Retrieve published post by slug
 class PostDetailView(DetailView):
