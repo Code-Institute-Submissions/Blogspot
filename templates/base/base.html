@@ -22,27 +22,39 @@
                 <i class="fas fa-pen text-brown"></i>
                 <span class="title ms-2">Blogspot</span>
             </div>
-            <nav>
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none">Home</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none">About</a></li>
-                    <li class="list-inline-item user-dropdown dropdown">
-                        <a href="#" class="dropdown-toggle text-decoration-none" id="userDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user me-1"></i> User
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                            {% if user.is_authenticated %}
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Log Out</a></li>
-                            {% else %}
-                                <li><a class="dropdown-item" href="#">Log In</a></li>
-                                <li><a class="dropdown-item" href="#">Sign Up</a></li>
-                            {% endif %}
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+            <div class="header-center d-flex align-items-center flex-grow-1">
+                <form action="{% url 'search_results' %}" method="GET" class="d-flex w-100">
+                    <input type="text" name="q" class="form-control me-2" placeholder="Search...">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <nav>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="text-decoration-none">Home</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-decoration-none">About</a></li>
+                        <li class="list-inline-item user-dropdown dropdown">
+                            <a href="#" class="dropdown-toggle text-decoration-none" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-1"></i> User
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                {% if user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Log Out</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="#">Log In</a></li>
+                                    <li><a class="dropdown-item" href="#">Sign Up</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 

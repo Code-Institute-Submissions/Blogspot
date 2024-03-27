@@ -11,6 +11,28 @@
     margin-left: 5px; 
 }
 
+/* Search Form Styles */
+.header-center form {
+    margin: 0; /* Reset default margin */
+}
+
+.header-center input[type="text"] {
+    width: 100%;
+    max-width: 300px; /* Adjust as needed */
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+
+.header-center button[type="submit"] {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+
 /* Navigation Styles */
 .navbar-nav {
     margin-left: auto;

@@ -12,7 +12,7 @@ class PostListView(ListView):
     queryset = Post.objects.filter(status=1)
     context_object_name = 'posts'
     template_name = 'blog/index.html'
-    aginate_by = 10
+    paginate_by = 10
 
 # Retrieve published post by slug
 class PostDetailView(DetailView):
@@ -51,3 +51,12 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'blog/create_post.html', {'form': form})
+
+def search_results(request):
+    query = request.GET.get('q')
+    if query:
+        # Perform the search query
+        results = Post.objects.filter(title__icontains=query)
+    else:
+        results = None
+    return render(request, 'blog/search_results.html', {'query': query, 'results': results})

@@ -8,11 +8,11 @@ urlpatterns = [
     # Home Page URL
     path('', views.PostListView.as_view(), name='home'),
 
+    #Search Bar URL
+    path('search/', views.search_results, name='search_results'),
+
     # Post URLs
     path('<slug:slug>/', views.PostDetailView.as_view(), name='post_detail'),
-    
-    # Category URLs
-    path('category/<int:pk>/', views.CategoryDetailView.as_view(), name='category_detail'),
     
     # Tag URLs
     path('tag/<int:pk>/', views.TagDetailView.as_view(), name='tag_detail'),
