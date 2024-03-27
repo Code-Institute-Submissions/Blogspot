@@ -19,4 +19,13 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # URL pattern for listing all posts
+    path('', views.post_list, name='post_list'),
+
+    # URL pattern for viewing a single post
+    path('post/<slug:slug>/', views.post_detail, name='post_detail'),
+
+     # URL pattern for adding a comment to a post
+    path('post/<slug:slug>/comment/', views.add_comment_to_post, name='add_comment_to_post'),
 ]
