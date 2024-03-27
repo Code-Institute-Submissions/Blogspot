@@ -1,0 +1,58 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+/* Header Styles */
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    margin-left: 5px; 
+}
+
+/* Navigation Styles */
+.navbar-nav {
+    margin-left: auto;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 10px; 
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem; 
+}
+
+.user-dropdown {
+    position: relative;
+}
+
+.user-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 10rem; 
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+}
+
+
+/* Media Queries adjusting for larger screens*/
+@media screen and (min-width: 768px) {
+    
+    .title {
+        margin-left: 10px;
+    }
+
+    .navbar-nav .nav-item {
+        margin-right: 20px; 
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1.5rem; 
+    }
+}
