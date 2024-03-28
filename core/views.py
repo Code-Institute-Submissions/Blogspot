@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
-from .forms import CommentForm, PostForm SignupForm
+from .forms import CommentForm, PostForm SignupForm LoginForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -26,11 +27,26 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect to some page after successful signup
-            return redirect('login')  # Redirect to the login page
+            # Redirect to login page after successful signup
+            return redirect('login')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # Redirect to home page after successful login
+                return redirect('home') 
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
 # Bind the POST data to the form
 # Create a new comment object but don't save it to the database yet
