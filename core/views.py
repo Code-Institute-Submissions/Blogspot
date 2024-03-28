@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
-from .forms import CommentForm, PostForm
+from .forms import CommentForm, PostForm SignupForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
@@ -20,6 +20,17 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'core/post_detail.html' 
     context_object_name = 'post'
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to some page after successful signup
+            return redirect('login')  # Redirect to the login page
+    else:
+        form = SignupForm()
+    return render(request, 'signup.html', {'form': form})
 
 # Bind the POST data to the form
 # Create a new comment object but don't save it to the database yet

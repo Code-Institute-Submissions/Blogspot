@@ -9,4 +9,7 @@ urlpatterns = [
 
     # Post URLs
     path('<slug:slug>/', views.PostDetailView.as_view(), name='post_detail'),
+
+    # Sign-up URLs
+     path('signup/', views.signup, name='signup'),
 ]

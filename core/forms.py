@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Post, Comment
+from django.contrib.auth.forms import UserCreationForm
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -19,3 +20,10 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['body']
         labels = {'body': 'Your Comment'}
+
+class SignupForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
