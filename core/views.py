@@ -10,7 +10,7 @@ from django.db.models import Q
 
 class PostListView(ListView):
     model = Post
-    queryset = Post.objects.filter(status=1)
+    queryset = Post.objects.filter(status=1).order_by('-created_at')
     context_object_name = 'posts'
     template_name = 'blog/index.html'
     paginate_by = 10
