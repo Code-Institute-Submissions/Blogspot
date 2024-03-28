@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Post, Comment, Tag, Category
+from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
 
@@ -21,4 +22,4 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created_on', 'author')
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
-    inlines = [CommentInline]
+    summernote_fields = ('content',)

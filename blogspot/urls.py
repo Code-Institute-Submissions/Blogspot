@@ -20,5 +20,6 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('summernote/', include('django_summernote.urls')),
     path("", include("core.urls"), name="core-urls"),
 ]
