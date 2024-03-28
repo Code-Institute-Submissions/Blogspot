@@ -12,13 +12,13 @@ class PostListView(ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     context_object_name = 'posts'
-    template_name = 'blog/index.html'
+    template_name = 'core/index.html'
     paginate_by = 10
 
 # Retrieve published post by slug
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'blog/post_detail.html' 
+    template_name = 'core/post_detail.html' 
     context_object_name = 'post'
 
 # Bind the POST data to the form
@@ -38,7 +38,7 @@ def add_comment_to_post(request, slug):
             return redirect('post_detail', slug=post.slug)
     else:
         form = CommentForm()  
-    return render(request, 'blog/add_comment_to_post.html', {'post': post, 'form': form})
+    return render(request, 'core/add_comment_to_post.html', {'post': post, 'form': form})
 
 @login_required
 def create_post(request):
@@ -51,7 +51,7 @@ def create_post(request):
             return redirect('post_detail', slug=post.slug)
     else:
         form = PostForm()
-    return render(request, 'blog/create_post.html', {'form': form})
+    return render(request, 'core/create_post.html', {'form': form})
 
 def search_results(request):
     query = request.GET.get('q')
@@ -64,4 +64,4 @@ def search_results(request):
         ).distinct()  # Ensure distinct results
     else:
         results = None
-    return render(request, 'blog/search_results.html', {'query': query, 'results': results})
+    return render(request, 'core/search_results.html', {'query': query, 'results': results})
