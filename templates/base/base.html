@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,44 +8,48 @@
     <link rel="icon" href="{% static 'media/favicon.png' %}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-          integrity="sha512-RE1s3fUC7VcwHcczHcdFuA7uBqm/n9L9U2zJg5GsAGZFX63WFL0ql4kPFZGQwIhT2rofYECU5tYnVpJoz7J0kA=="
-          crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <header class="bg-light py-3">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="header-left d-flex align-items-center">
-                <a href="{% url 'home' %}" class="text-decoration-none">
+                <a href="{% url 'core:home' %}" class="text-decoration-none">
                     <i class="fas fa-pen text-brown"></i>
-                    <span class="title ms-2">Blogspot</span>
+                    <span class="text-brown title ms-2 " style="color: brown">Blogspot</span>
                 </a>
             </div>
-            <div class="header-center d-flex align-items-center flex-grow-1">
-                <form action="{% url 'search_results' %}" method="GET" class="d-flex w-100">
-                    <input type="text" name="q" class="form-control me-2" placeholder="Search...">
-                    <button type="submit" class="btn btn-primary">Search</button>
+            <div class="header-center">
+                <form action="{% url 'core:search_results' %}" method="GET" class="d-flex">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search...">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </form>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <nav>
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a href="{% url 'home' %}" class="text-decoration-none">Home</a></li>
-                        <li class="list-inline-item"><a href="#" class="text-decoration-none">About</a></li>
-                        <li class="list-inline-item user-dropdown dropdown">
-                            <a href="#" class="dropdown-toggle text-decoration-none" id="userDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="header-right">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="title nav-link text-brown" href="{% url 'core:home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="title nav-link text-brown" href="#">About</a>
+                        </li>
+                        <li class="nav-item user-dropdown dropdown">
+                            <a class="nav-link dropdown-toggle text-brown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-1"></i> User
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {% if user.is_authenticated %}
                                     <li><a class="dropdown-item" href="#">Edit Profile</a></li>
                                     <li><a class="dropdown-item" href="#">Log Out</a></li>
@@ -55,7 +60,7 @@
                             </ul>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </div>
         </div>
     </header>
