@@ -27,8 +27,8 @@
             <div class="header-center">
                 <form action="{% url 'core:search_results' %}" method="GET" class="d-flex">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <input type="text" name="q" class="form-control" placeholder="Search..." id="searchInput">
+                        <button type="submit" class="btn btn-primary d-none d-md-block">Search</button>
                     </div>
                 </form>
             </div>
@@ -39,6 +39,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-signs-post text-brown"></i>
+                                </a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="title nav-link text-brown" href="{% url 'core:home' %}">Home</a>
                         </li>
@@ -47,7 +54,7 @@
                         </li>
                         <li class="nav-item user-dropdown dropdown">
                             <a class="nav-link dropdown-toggle text-brown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-1"></i> User
+                                <i class="fas fa-user me-1"></i>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {% if user.is_authenticated %}
@@ -76,5 +83,6 @@
     </footer>
 
     <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+1a0F1kQk5hg5ZvSvKTO6z8wW0RbF5g5vldcgw2odXtZ4wo+gqEFe6kpxn" crossorigin="anonymous"></script>
 </body>
 </html>
