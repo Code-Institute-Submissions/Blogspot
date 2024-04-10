@@ -80,15 +80,19 @@ def create_post(request):
         form = PostForm()
     return render(request, 'core/create_post.html', {'form': form})
 
+# Perform the search query
+# Search in title
+# Search in content
+# Search in keywords field (if available)
+# Ensure distinct results
 def search_results(request):
     query = request.GET.get('q')
     if query:
-        # Perform the search query
         results = Post.objects.filter(
-            Q(title__icontains=query) |  # Search in title
-            Q(content__icontains=query) |  # Search in content
-            Q(keywords__icontains=query)  # Search in keywords field (if available)
-        ).distinct()  # Ensure distinct results
+            Q(title__icontains=query) |  
+            Q(content__icontains=query) |  
+            Q(keywords__icontains=query)  
+        ).distinct()  
     else:
         results = None
     return render(request, 'core/search_results.html', {'query': query, 'results': results})
