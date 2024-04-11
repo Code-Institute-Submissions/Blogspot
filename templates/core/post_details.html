@@ -1,0 +1,84 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-md-8 mx-auto">
+            <div class="card mb-4">
+                <div class="card-body">
+                    {% if "placeholder" in post.featured_image.url %}
+                    <img class="card-img-top" src="{% static 'media/default.jpg' %}" alt="Placeholder Image">
+                    {% else %}
+                    <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    {% endif %}
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text">Author: {{ post.author }}</p>
+                    <p class="card-text">{{ post.content }}</p>
+                    <p class="card-text text-muted">Created on: {{ post.created_on }}</p>
+                </div>
+                <div class="card-footer text-left"> <!-- Align content to the left -->
+                    <!-- Like, Dislike, Report buttons -->
+                    <button class="btn btn-primary mr-2" onclick="likeOrRedirect('{{ post.slug }}')">Like</button>
+                    <button class="btn btn-secondary mr-2" onclick="dislikeOrRedirect('{{ post.slug }}')">Dislike</button>
+                    <button class="btn btn-danger" onclick="reportOrRedirect('{{ post.slug }}')">Report</button>
+                    
+                    <!-- Edit and Delete buttons for authenticated users -->
+                    {% if user.is_authenticated and user == post.author %}
+                    <button class="btn btn-warning ml-auto mr-2" onclick="editPost('{{ post.slug }}')">Edit</button>
+                    <button class="btn btn-danger" onclick="deletePost('{{ post.slug }}')">Delete</button>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Comment Form -->
+            <div class="card">
+                <div class="card-body">
+                    <h3>Add Comment</h3>
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'add_comment_to_post' post.slug %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    {% else %}
+                    <p>Please <a href="{% static : users/log-in.html}">log in</a> to add a comment.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h3>Comments</h3>
+                    {% for comment in post.comments.all %}
+                    <div class="media mb-4">
+                        <img class="mr-3 rounded-circle" src="{% static 'media/default-profile-image.jpg' %}" alt="User Profile Image" style="width: 64px; height: 64px;">
+                        <div class="media-body">
+                            <h5 class="mt-0">{{ comment.user.username }}</h5>
+                            <p>{{ comment.text }}</p>
+                            {% if user.is_authenticated and user == comment.user %}
+                            <!-- Delete button for comment author -->
+                            <form method="post" action="{% url 'delete_comment' comment.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>No comments yet.</p>
+                    {% endfor %}
+                </div>>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'script.js' %}"></script>
+{% endblock %}
