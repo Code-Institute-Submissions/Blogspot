@@ -89,10 +89,6 @@ main {
     flex: 1; /* Allow the main content to grow and take up available space */
 }
 
-.main-block {
-    background-color: #f0db99;
-}
-
 /* Footer Styles */
 footer {
     flex-shrink: 0; /* Prevent the footer from shrinking */

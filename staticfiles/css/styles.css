@@ -89,6 +89,15 @@ main {
     flex: 1; /* Allow the main content to grow and take up available space */
 }
 
+.image-container{
+    max-height: 100px;
+}
+
+.image-max{
+    max-height: 100%;
+    width: auto
+}
+
 /* Footer Styles */
 footer {
     flex-shrink: 0; /* Prevent the footer from shrinking */
