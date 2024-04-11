@@ -57,3 +57,14 @@
     </nav>
 </div>
 {% endblock %}
+
+{% block extras %}
+    <script>
+        // Check if there's a success message, then show a popup
+        {% if messages %}
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+        {% endif %}
+    </script>
+{% endblock %}

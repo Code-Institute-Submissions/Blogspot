@@ -13,6 +13,6 @@ urlpatterns = [
     # Sign-up URLs
      path('signup/', views.signup, name='signup'),
 
-    # Search result URLs
-     path('search/', views.search_results, name='search_results'),
+    # Search URLs
+     path('search/', views.search, name='search'),
 ]

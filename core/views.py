@@ -85,14 +85,14 @@ def create_post(request):
 # Search in content
 # Search in keywords field (if available)
 # Ensure distinct results
-def search_results(request):
+def search(request):
     query = request.GET.get('q')
     if query:
         results = Post.objects.filter(
             Q(title__icontains=query) |  
             Q(content__icontains=query) |  
             Q(keywords__icontains=query)  
-        ).distinct()  
+        ).distinct()
     else:
         results = None
     return render(request, 'core/search_results.html', {'query': query, 'results': results})
