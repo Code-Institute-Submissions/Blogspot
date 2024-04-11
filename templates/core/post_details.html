@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <h3>Add Comment</h3>
                     {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'add_comment_to_post' post.slug %}">
+                    <form method="post" action="#">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="comment">Comment:</label>

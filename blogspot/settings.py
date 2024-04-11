@@ -28,7 +28,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1",'8000-jteo99-blogspot-lry552zahj0.ws-eu110.gitpod.io', 
                 '.herokuapp.com'
@@ -51,10 +51,11 @@ INSTALLED_APPS = [
     'django_summernote',
     'cloudinary',
     'crispy_forms',
+    'crispy_bootstrap4',
     'core',
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,6 +87,8 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 WSGI_APPLICATION = 'blogspot.wsgi.application'
 
 
@@ -105,7 +108,8 @@ DATABASES = {
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeanyapp.com",
-    "https://*.herokuapp.com"
+    "https://*.herokuapp.com",
+    "https://8000-jteo99-blogspot-lry552zahj0.ws-eu110.gitpod.io"
 ]
 
 
