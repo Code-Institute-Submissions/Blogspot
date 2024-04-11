@@ -8,22 +8,22 @@
         <!-- Blog Entries Column -->
         {% for post in posts %}
         <div class="col-md-12 mb-4">
-            <div class="card">
+            <div class="card bg-light">
                 <div class="card-body">
                     <div class="image-container">
-                        {% if "placeholder" in post.featured_image.url %}
-                        <img class="card-img-top" src="{% static 'images/default.jpg' %}"
-                            alt="placeholder image">
+                        {% if 'placeholder' in post.cover_image.name %}
+                        <img src="{% static 'images/default.jpg' %}" alt="placeholder image" class="card-img-top" width="450" height="250">
                         {% else %}
-                        <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% load cloudinary %}
+                        {% cloudinary  post.cover_image format="WebP" width=600 height=300 crop='fill' class='blog_image' alt='Blog image uploaded by user' %}
                         {% endif %}
                         <div class="image-flash">
                             <p class="author">Author: {{ post.author }}</p>
                         </div>
                     </div>
                     <a href="{% url 'core:post_detail' post.slug %}" class="post-link">
-                        <h2 class="card-title">{{ post.title }}</h2>
-                        <p class="card-text">{{ post.excerpt }}</p>
+                        <h2 class="card-title text-brown">{{ post.title }}</h2>
+                        <p class="card-text text-brown">{{ post.excerpt }}</p>
                     </a>
                     <hr />
                     <p class="card-text text-muted h6">{{ post.created_on }}</p>
