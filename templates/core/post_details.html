@@ -46,7 +46,7 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                     {% else %}
-                    <p>Please <a href="{% static : users/log-in.html}">log in</a> to add a comment.</p>
+                    <p>Please <a href="{% url 'account_login' %}">log in</a> to add a comment.</p>
                     {% endif %}
                 </div>
             </div>

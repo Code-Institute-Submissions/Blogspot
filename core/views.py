@@ -12,7 +12,7 @@ from django.views.decorators.http import require_POST
 # Create your views here.
 
 def custom_login(request):
-    return render(request, 'user/log-in.html')
+    return render(request, 'user/login.html')
 
 class PostListView(ListView):
     model = Post
@@ -37,21 +37,6 @@ def signup(request):
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
-
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # Redirect to home page after successful login
-                return redirect('home') 
-    else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form})
 
 # Bind the POST data to the form
 # Create a new comment object but don't save it to the database yet

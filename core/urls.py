@@ -18,7 +18,7 @@ urlpatterns = [
     path('report/<slug:slug>/', views.report_post, name='report_post'),
 
     # log-in URLs
-    path('login/', views.custom_login, name='custom_login'),
+    path('login/', views.custom_login, name='login'),
 
     # Sign-up URLs
     path('signup/', views.signup, name='signup'),
