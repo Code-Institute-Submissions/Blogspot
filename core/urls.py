@@ -21,11 +21,6 @@ urlpatterns = [
     path('create/', views.create_post, name='create_post'),
     
     # Post URLs
-    path('<slug:slug>/', views.PostDetailView.as_view(), name='post_details'),
+    path('post/<slug:slug>/', views.PostDetailView.as_view(), name='post_details'),
 
-    # Add Comment URLs
-    path('post/<slug:slug>/add_comment/', views.add_comment, name='add_comment'),
-
-    # View comment URLs
-    path('<slug:slug>/comments/', views.view_comments, name='view_comments'),
 ]

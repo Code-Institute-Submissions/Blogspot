@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django import forms
 from django.contrib.auth.models import User
 from .models import Post, Comment
@@ -47,14 +48,9 @@ class PostForm(forms.ModelForm):
         return post
 
 class CommentForm(forms.ModelForm):
-    body = forms.CharField(
-        label='',
-        widget=forms.Textarea(attrs={'placeholder': 'Your comment:', 'class': 'form-control', 'style': 'width: 80%; margin: 0 auto;', 'autofocus': False})
-    )
-
     class Meta:
         model = Comment
-        fields = ('body',)
+        fields = ['body']
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField()

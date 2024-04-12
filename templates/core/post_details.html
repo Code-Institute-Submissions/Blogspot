@@ -19,12 +19,6 @@
                     <p class="card-text text-muted">Created on: {{ post.created_on }}</p>
                 </div>
                 <div class="card-footer text-left"> <!-- Align content to the left -->
-                    
-                    <!-- Edit and Delete buttons for authenticated users -->
-                    {% if user.is_authenticated and user == post.author %}
-                    <button class="btn btn-warning ml-auto mr-2" onclick="editPost('{{ post.slug }}')">Edit</button>
-                    <button class="btn btn-danger" onclick="deletePost('{{ post.slug }}')">Delete</button>
-                    {% endif %}
                 </div>
             </div>
 
@@ -33,7 +27,7 @@
                 <div class="card-body">
                     <h3>Add Comment</h3>
                     {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'core:add_comment' post.slug %}">
+                    <form method="post" action="{% url 'core:post_details' slug=post.slug %}">
                         {% csrf_token %}
                         {{ comment_form.as_p }}
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -48,8 +42,15 @@
             <div id="comments-section" class="card mt-4">
                 <div class="card-body">
                     <h3>Comments</h3>
-                    {% include 'core/comments.html' %}
-                </div>
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <p><strong>{{ comment.user.username }}</strong> - {{ comment.created_on }}</p>
+                            <p>{{ comment.body }}</p>
+                        </div>
+                    {% empty %}
+                        <p>No comments yet.</p>
+                    {% endfor %}
+                </div>    
             </div>
         </div>
     </div>

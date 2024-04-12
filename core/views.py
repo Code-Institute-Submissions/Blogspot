@@ -31,11 +31,35 @@ class PostListView(ListView):
     template_name = 'core/index.html'
     paginate_by = 10
 
-# Retrieve published post by slug
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Post, Comment
+from .forms import CommentForm
+from django.views.generic import DetailView
+from django.contrib.auth.decorators import login_required
+
 class PostDetailView(DetailView):
     model = Post
     template_name = 'core/post_details.html' 
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        comments = post.comments.all().order_by("-created_on")
+        context['comments'] = comments
+        if self.request.method == 'POST':
+            comment_form = CommentForm(self.request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.save()
+                # Optionally, add a success message
+                return redirect('core:post_details', slug=post.slug)
+        else:
+            comment_form = CommentForm()
+        context['comment_form'] = comment_form
+        return context
+
 
 def signup(request):
     if request.method == 'POST':
@@ -46,32 +70,6 @@ def signup(request):
     else:
         form = SignupForm()
     return render(request, 'account/signup.html', {'form': form})
-
-@login_required
-def add_comment(request, slug):
-    post = get_object_or_404(Post, slug=slug, status=1)
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.post = post
-            new_comment.user = request.user
-            new_comment.save()
-            return redirect('core:post_details', slug=post.slug)
-        else:
-            # Print form errors to identify any validation issues
-            print(form.errors)
-    else:
-        form = CommentForm()
-
-    return render(request, 'core/post_details.html', {'post': post, 'comment_form': form})
-
-# Retrieve all comments associated with the post
-def view_comments(request, slug):
-    post = get_object_or_404(Post, slug=slug, status=1)
-    comments = post.comments.all()  
-    return render(request, 'core/comments.html', {'post': post, 'comments': comments})
 
 @login_required
 def create_post(request):
