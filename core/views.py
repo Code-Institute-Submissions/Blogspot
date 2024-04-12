@@ -9,6 +9,9 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.views.decorators.http import require_POST
+from django.utils.decorators import method_decorator
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -47,19 +50,24 @@ class PostDetailView(DetailView):
         post = self.get_object()
         comments = post.comments.all().order_by("-created_on")
         context['comments'] = comments
-        if self.request.method == 'POST':
-            comment_form = CommentForm(self.request.POST)
-            if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.post = post
-                comment.save()
-                # Optionally, add a success message
-                return redirect('core:post_details', slug=post.slug)
-        else:
-            comment_form = CommentForm()
-        context['comment_form'] = comment_form
+        context['comment_form'] = CommentForm()  # Add an instance of the form to the context
         return context
 
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        post = self.get_object()
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.user = request.user  # Associate the comment with the logged-in user
+            comment.save()
+            return HttpResponseRedirect(reverse('core:post_details', kwargs={'slug': post.slug}))
+        else:
+            # If the form is invalid, re-render the page with the form and existing comments
+            comments = post.comments.all().order_by("-created_on")
+            context = {'post': post, 'comments': comments, 'comment_form': comment_form}
+            return render(request, self.template_name, context)
 
 def signup(request):
     if request.method == 'POST':
