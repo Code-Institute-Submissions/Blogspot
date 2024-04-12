@@ -98,6 +98,30 @@ main {
     width: auto
 }
 
+/* Adjust the size and spacing of the comment form */
+.card-body .form-group {
+    margin-bottom: 1rem; /* Add some space between form elements */
+}
+
+/* Style the label for the comment input */
+.card-body label {
+    font-weight: bold; /* Make the label bold */
+}
+
+/* Style the textarea for the comment input */
+.card-body textarea {
+    width: 100%; /* Make the textarea fill the entire width of its container */
+    min-height: 100px; /* Set a minimum height for the textarea */
+    padding: 0.5rem; /* Add some padding inside the textarea */
+    border: 1px solid #ced4da; /* Add a border to the textarea */
+    border-radius: 0.25rem; /* Add a border radius to round the corners */
+}
+
+/* Style the submit button */
+.card-body button[type="submit"] {
+    margin-top: 1rem; /* Add some space above the submit button */
+}
+
 /* Footer Styles */
 footer {
     flex-shrink: 0; /* Prevent the footer from shrinking */

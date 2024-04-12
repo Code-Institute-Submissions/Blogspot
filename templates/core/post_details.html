@@ -19,10 +19,6 @@
                     <p class="card-text text-muted">Created on: {{ post.created_on }}</p>
                 </div>
                 <div class="card-footer text-left"> <!-- Align content to the left -->
-                    <!-- Like, Dislike, Report buttons -->
-                    <button class="btn btn-primary mr-2" onclick="likeOrRedirect('{{ post.slug }}')">Like</button>
-                    <button class="btn btn-secondary mr-2" onclick="dislikeOrRedirect('{{ post.slug }}')">Dislike</button>
-                    <button class="btn btn-danger" onclick="reportOrRedirect('{{ post.slug }}')">Report</button>
                     
                     <!-- Edit and Delete buttons for authenticated users -->
                     {% if user.is_authenticated and user == post.author %}
@@ -33,52 +29,32 @@
             </div>
 
             <!-- Comment Form -->
-<div class="card">
-    <div class="card-body">
-        <h3>Add Comment</h3>
-        {% if user.is_authenticated %}
-        <form method="post" action="{% url 'core:add_comment' post.slug %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="id_body">Your Comment:</label>
-                {{ comment_form.body }}
+            <div class="card">
+                <div class="card-body">
+                    <h3>Add Comment</h3>
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'core:add_comment' post.slug %}">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    {% else %}
+                    <p>Please <a href="{% url 'core:login' %}">log in</a> to add a comment.</p>
+                    {% endif %}
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        {% else %}
-        <p>Please <a href="{% url 'core:login' %}">log in</a> to add a comment.</p>
-        {% endif %}
-    </div>
-</div>
 
-<!-- Comments Section -->
-<div class="card mt-4">
-    <div class="card-body">
-        <h3>Comments</h3>
-        {% for comment in post.comments.all %}
-        <div class="media mb-4">
-            <div class="media-body">
-                <h5 class="mt-0">{{ comment.user.username }}</h5>
-                <p>{{ comment.body }}</p>
-                <!-- Line spanning 80% of the box width -->
-                <hr style="width: 80%;">
-                {% if user.is_authenticated and user == comment.user %}
-                <!-- Delete button for comment author -->
-                <form method="post" action="{% url 'core:delete_comment' comment.id %}" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
-                {% endif %}
+            <!-- Comments Section -->
+            <div id="comments-section" class="card mt-4">
+                <div class="card-body">
+                    <h3>Comments</h3>
+                    {% include 'core/comments.html' %}
+                </div>
             </div>
         </div>
-        {% empty %}
-        <p>No comments yet.</p>
-        {% endfor %}
     </div>
 </div>
-
 {% endblock %}
 
 {% block extras %}
-<script src="{% static 'script.js' %}"></script>
 {% endblock %}
