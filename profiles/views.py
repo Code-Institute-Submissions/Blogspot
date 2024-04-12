@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import UserProfile
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from .forms import ChangeDetailsForm, ChangePasswordForm
+
 
 @login_required
 def profile_view(request):
@@ -9,6 +11,7 @@ def profile_view(request):
     user = request.user
     profile = UserProfile.objects.get(user=user)
     return render(request, 'account/profile.html', {'user': user, 'profile': profile})
+
 
 @login_required
 def account_settings(request):
@@ -23,3 +26,12 @@ def account_settings(request):
         details_form = ChangeDetailsForm(instance=request.user)
         password_form = ChangePasswordForm(request.user)
     return render(request, 'account/account_settings.html', {'details_form': details_form, 'password_form': password_form})
+
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        request.user.delete()
+        logout(request)
+        return redirect('core:home') 
+    return render(request, 'account/delete_account.html')

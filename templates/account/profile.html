@@ -10,5 +10,10 @@
     <p><strong>Email:</strong> {% for i in profile.email %}*{% endfor %}</p>
     <p><strong>Password:</strong> {% for i in profile.password %}*{% endfor %}</p>
     <a href="{% url 'profiles:account_settings' %}" class="btn btn-primary mr-2">Edit Account</a>
+
+    <form method="post" action="{% url 'profiles:delete_account' %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Account</button>
+    </form>
 </div>
 {% endblock %}
