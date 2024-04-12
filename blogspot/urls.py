@@ -28,4 +28,5 @@ urlpatterns = [
     path('', core_views.PostListView.as_view(), name='home'),
     path('core/', include('core.urls')),
     path('about/', include('about.urls')),
+    path('profiles/', include('profiles.urls')),
 ]
