@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
 if os.path.isfile('env.py'):
     import env
 
@@ -28,7 +31,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1",'8000-jteo99-blogspot-lry552zahj0.ws-eu110.gitpod.io', 
                 '.herokuapp.com'
@@ -59,6 +62,12 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 2
+
+CLOUDINARY = {
+  'cloud_name': 'daurzv1y9',  
+  'api_key': os.environ.get("CLOUDINARY_API_KEY"),  
+  'api_secret': os.environ.get("CLOUDINARY_SECRET_KEY"),  
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

@@ -82,10 +82,10 @@ def create_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('post_details', slug=post.slug)
+            return redirect('home')
     else:
         form = PostForm()
-    return render(request, 'core/create_post.html', {'form': form})
+    return render(request, 'core/create.html', {'form': form})
 
 @login_required
 @require_POST

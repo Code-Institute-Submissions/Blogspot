@@ -19,8 +19,8 @@
                         <p class="author">Author: {{ post.author }}</p>
                     </div>
                     <a href="{% url 'core:post_details' post.slug %}" class="post-link">
-                        <h2 class="card-title text-brown">{{ post.title }}</h2>
-                        <p class="card-text text-brown">{{ post.excerpt }}</p>
+                        <h2 class="card-title text-dark">{{ post.title }}</h2>
+                        <p class="card-text text-dark">{{ post.excerpt }}</p>
                     </a>
                     <hr />
                     <p class="card-text text-muted h6">{{ post.created_on }}</p>

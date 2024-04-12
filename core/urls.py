@@ -19,6 +19,9 @@ urlpatterns = [
 
     # Search URLs
     path('search/', views.search, name='search'),
+
+    # Create Post URLs
+    path('create/', views.create_post, name='create_post'),
     
     # Post URLs
     path('<slug:slug>/', views.PostDetailView.as_view(), name='post_details'),

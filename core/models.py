@@ -123,3 +123,8 @@ class Report(models.Model):
 
     def __str__(self):
         return f"Report {self.report_type} by {self.reporter.username}"
+
+class Photo(models.Model):
+    image = CloudinaryField('image')
+    alt = models.CharField(max_length=200)
+    uploaded = models.DateTimeField(auto_now_add=True)
