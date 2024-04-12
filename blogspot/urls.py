@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from core import views
 from django.contrib.auth import views as auth_views
+from core import views as core_views 
+from about import views as about_views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
     path('accounts/', include('allauth.urls')),
-    path("", include("core.urls"), name="core-urls"),
+    path('', core_views.PostListView.as_view(), name='home'),
+    path('core/', include('core.urls')),
+    path('about/', include('about.urls')),
 ]
