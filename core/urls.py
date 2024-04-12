@@ -26,6 +26,12 @@ urlpatterns = [
     # Post URLs
     path('<slug:slug>/', views.PostDetailView.as_view(), name='post_details'),
 
+    # Add Comment URLs
+     path('post/<slug:slug>/add_comment/', views.add_comment, name='add_comment'),
+    
+    # Delete comment URLs
+    path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
+
     # Like, Dislike, Report URLs
     path('like/<slug:slug>/', views.like_post, name='like_post'),
     path('dislike/<slug:slug>/', views.dislike_post, name='dislike_post'),

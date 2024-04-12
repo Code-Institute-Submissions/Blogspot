@@ -49,8 +49,7 @@ class PostForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body']
-        labels = {'body': 'Your Comment'}
+        fields = ('body',)
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField()

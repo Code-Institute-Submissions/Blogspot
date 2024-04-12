@@ -48,31 +48,28 @@ def signup(request):
         form = SignupForm()
     return render(request, 'account/signup.html', {'form': form})
 
-# Bind the POST data to the form
-# Create a new comment object but don't save it to the database yet
-# Redirect to the post detail page after adding comment
-# Create a new blank form
 @login_required
-def add_comment_to_post(request, slug):
+def add_comment(request, slug):
     post = get_object_or_404(Post, slug=slug, status=1)
+
     if request.method == 'POST':
-        form = CommentForm(request.POST)  
+        form = CommentForm(request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.post = post
             new_comment.user = request.user
             new_comment.save()
-            return redirect('post_details', slug=post.slug)
+            return redirect('core:post_details', slug=post.slug)
     else:
-        form = CommentForm()  
-    return render(request, 'core/add_comment_to_post.html', {'post': post, 'form': form})
+        form = CommentForm()
 
-@login_required
+    return render(request, 'core/post_details.html', {'post': post, 'comment_form': form})
+
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     if request.user == comment.user:
         comment.delete()
-    return redirect('post_details', slug=comment.post.slug)
+    return redirect('core:post_details', slug=comment.post.slug)
 
 @login_required
 def create_post(request):
