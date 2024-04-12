@@ -9,10 +9,6 @@
     <p><strong>Username:</strong> {{ user.username }}</p>
     <p><strong>Email:</strong> {% for i in profile.email %}*{% endfor %}</p>
     <p><strong>Password:</strong> {% for i in profile.password %}*{% endfor %}</p>
-    <a href="{% url 'account/account_settings' %}" class="btn btn-primary mr-2">Edit Account</a>
-    <form action="{% url 'account/delete_account' %}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete Account</button>
-    </form>
+    <a href="{% url 'profiles:account_settings' %}" class="btn btn-primary mr-2">Edit Account</a>
 </div>
 {% endblock %}
