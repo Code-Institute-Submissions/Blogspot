@@ -23,7 +23,7 @@ def custom_login(request):
             return redirect('core:home') 
         else:
             pass
-    return render(request, 'user/login.html')
+    return render(request, 'account/login.html')
 
 class PostListView(ListView):
     model = Post
@@ -43,11 +43,10 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect to login page after successful signup
-            return redirect('login')
+            return redirect('core:login')
     else:
         form = SignupForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'account/signup.html', {'form': form})
 
 # Bind the POST data to the form
 # Create a new comment object but don't save it to the database yet

@@ -13,7 +13,13 @@ urlpatterns = [
 
     # log-out URLs
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    
+    # Sign-up URLs
+    path('signup/', views.signup, name='signup'),
 
+    # Search URLs
+    path('search/', views.search, name='search'),
+    
     # Post URLs
     path('<slug:slug>/', views.PostDetailView.as_view(), name='post_details'),
 
@@ -21,11 +27,4 @@ urlpatterns = [
     path('like/<slug:slug>/', views.like_post, name='like_post'),
     path('dislike/<slug:slug>/', views.dislike_post, name='dislike_post'),
     path('report/<slug:slug>/', views.report_post, name='report_post'),
-
-   
-    # Sign-up URLs
-    path('signup/', views.signup, name='signup'),
-
-    # Search URLs
-    path('search/', views.search, name='search'),
 ]

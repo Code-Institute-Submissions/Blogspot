@@ -48,7 +48,7 @@
                         <a class="navbar-brand authorization-link" href="{% url 'core:logout' %}">Logout</a>
                         {% else %} 
                         <a class="navbar-brand authorization-link" href="{% url 'account_login' %}">Login</a>
-                        <a class="navbar-brand authorization-link" href="#">Register</a>
+                        <a class="navbar-brand authorization-link" href="{% url 'core:signup' %}">Sign Up</a>
                         {% endif %}
                     </span>
                 </div>
