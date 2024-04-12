@@ -8,18 +8,19 @@ from crispy_forms.layout import Layout, Submit
 from cloudinary.forms import CloudinaryFileField
 from django.utils.text import slugify
 
+
 class PostForm(forms.ModelForm):
     image = CloudinaryFileField(
         options={
             'folder': 'blog_images/',
-            'resource_type': 'image' 
+            'resource_type': 'image'
         },
         required=False
     )
 
     excerpt = forms.CharField(
         label='Excerpt',
-        widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), 
+        widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}),
         required=False
     )
 
@@ -37,7 +38,7 @@ class PostForm(forms.ModelForm):
         post = super().save(commit=False)
         post.status = 1
         if not post.slug:
-            post.slug = slugify(post.title) 
+            post.slug = slugify(post.title)
 
         image = self.cleaned_data.get('image', None)
         if image:
@@ -47,10 +48,12 @@ class PostForm(forms.ModelForm):
             post.save()
         return post
 
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['body']
+
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField()
@@ -58,6 +61,7 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
 
 class LoginForm(AuthenticationForm):
     pass

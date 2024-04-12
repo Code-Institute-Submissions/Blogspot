@@ -6,6 +6,7 @@ from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=50)
 
@@ -21,8 +22,8 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length = 200, unique=True)
-    slug = models.SlugField(max_length = 200, unique = True)
+    title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name="blog_posts"
@@ -86,7 +87,7 @@ class Comment(models.Model):
     @property
     def dislikes_count(self):
         return self.dislikes.count()
-    
+
     def edit(self, body):
         self.body = body
         self.edited_on = timezone.now()
@@ -107,6 +108,7 @@ class Comment(models.Model):
             parent_comment = parent_comment.parent
         return depth
 
+
 class Report(models.Model):
     POST = 'post'
     COMMENT = 'comment'
@@ -123,6 +125,7 @@ class Report(models.Model):
 
     def __str__(self):
         return f"Report {self.report_type} by {self.reporter.username}"
+
 
 class Photo(models.Model):
     image = CloudinaryField('image')

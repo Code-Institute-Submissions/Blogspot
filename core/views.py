@@ -15,6 +15,7 @@ from django.urls import reverse
 
 # Create your views here.
 
+
 def custom_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -22,10 +23,11 @@ def custom_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('core:home') 
+            return redirect('core:home')
         else:
             pass
     return render(request, 'account/login.html')
+
 
 class PostListView(ListView):
     model = Post
@@ -34,15 +36,10 @@ class PostListView(ListView):
     template_name = 'core/index.html'
     paginate_by = 10
 
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Comment
-from .forms import CommentForm
-from django.views.generic import DetailView
-from django.contrib.auth.decorators import login_required
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'core/post_details.html' 
+    template_name = 'core/post_details.html'
     context_object_name = 'post'
 
     def get_context_data(self, **kwargs):
@@ -69,6 +66,7 @@ class PostDetailView(DetailView):
             context = {'post': post, 'comments': comments, 'comment_form': comment_form}
             return render(request, self.template_name, context)
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -78,6 +76,7 @@ def signup(request):
     else:
         form = SignupForm()
     return render(request, 'account/signup.html', {'form': form})
+
 
 @login_required
 def create_post(request):
